@@ -2,13 +2,13 @@
     <h3 class="pb-3 mb-4 font-italic border-bottom">
         Задачи
     </h3>
-    @if (empty($tasks))
+    @if (count($tasks) > 0)
     @foreach($tasks as $task)
         <div class="blog-post">
             <h2 class="blog-post-title">{{ $task->title }}</h2>
             <p class="blog-post-meta">{{ $task->created_at->toFormattedDateString() }}</p>
             <p>{{ $task->body }}</p>
-            <a href="{{ route('task.show', ['slug' => $task->id]) }}">Читать задачу</a>
+            <a href="{{ route('task.show', ['id' => $task->id]) }}">Посмотреть задачу</a>
         </div>
     @endforeach
     @else
