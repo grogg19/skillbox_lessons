@@ -13,7 +13,24 @@
     @if($task->steps->isNotEmpty())
     <ul class="list-group mt-3">
         @foreach($task->steps as $step)
-            <li class="list-group-item">{{ $step->description }}</li>
+            <li class="list-group-item">
+                <form method="post" action="{{ route('task.step.update', ['step' => $step]) }}">
+                    @csrf
+                    @method('patch')
+                    <div class="form-check">
+                        <label class="form-check-label {{ $step->completed ? 'completed' : '' }}">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="completed"
+                                onclick="this.form.submit()"
+                                {{ $step->completed ? 'checked' : '' }}
+                            />
+                            {{ $step->description }}
+                        </label>
+                    </div>
+                </form>
+            </li>
         @endforeach
     </ul>
     @endif
