@@ -8,7 +8,7 @@
             <h2 class="blog-post-title">{{ $task->title }}</h2>
             <p class="blog-post-meta">{{ $task->created_at->toFormattedDateString() }}</p>
             <p>{{ $task->body }}</p>
-            <a href="{{ route('tasks.edit', ['task' => $task->id]) }}">Посмотреть задачу</a>
+            <a href="{{ route('tasks.show', ['task' => $task->id]) }}">Посмотреть задачу</a>
         </div>
     @endforeach
     @else

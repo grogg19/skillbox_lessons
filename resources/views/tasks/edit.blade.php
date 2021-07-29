@@ -34,6 +34,7 @@
         @csrf
         @method('delete')
         <div class="form-group">
+            <a class="btn btn-primary" href="{{ route('page.main') }}">К списку задач</a>
             <button type="submit" class="btn btn-dark"><i class="fas fa-trash-alt"></i></button>
         </div>
     </form>

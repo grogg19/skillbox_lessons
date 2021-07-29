@@ -1,15 +1,15 @@
 @extends('layout.main')
 
-@section('title', 'Статья | ' . $article->title )
+@section('title', 'Задача | ' . $task->title )
 
 @section('content')
     <h3 class="pb-3 mb-4 font-italic border-bottom">
         Детальная страница статьи
     </h3>
-    <h1>{{ $article->title }}</h1>
-    <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}</p>
-    {{ $article->body }}
-    <p>
-        <a href="{{ route('page.main') }}">К списку статей</a>
-    </p>
+    <h1>{{ $task->title }}</h1>
+    <p class="blog-post-meta">{{ $task->created_at->toFormattedDateString() }}</p>
+    {{ $task->body }}
+    <div class="mt-4">
+        <a class="btn btn-primary" href="{{ route('tasks.edit', $task) }}">Изменить <i class="fas fa-edit"></i></a>
+    </div>
 @endsection
