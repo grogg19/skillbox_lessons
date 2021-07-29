@@ -13,6 +13,6 @@ class Task extends Model
 
     public function steps()
     {
-        $this->hasMany(Step::class);
+        return $this->hasMany(Step::class);
     }
 }
