@@ -8,6 +8,7 @@ Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::resource('tasks', 'TasksController');
 
+Route::patch('/steps/{step}', 'TaskStepsController@update')->name('task.step.update');
 
 Route::get('/about/', function () {
     return view('about');
