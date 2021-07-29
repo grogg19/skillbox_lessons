@@ -13,6 +13,7 @@ class TasksController extends Controller
      */
     public function index()
     {
+
         $tasks = Task::all();
         return view('index', compact('tasks'));
     }
@@ -39,9 +40,9 @@ class TasksController extends Controller
         ];
 
 
-        $result = $this->validate($request, $rules);
+        $attibutes = $request->validate($rules);
 
-        Task::create($result);
+        Task::create($attibutes);
 
         return redirect(route('page.main'));
     }
@@ -50,44 +51,49 @@ class TasksController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $task = Task::find($id);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Task $task
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        $rules = [
+            'title' => 'required',
+            'body' => 'required'
+        ];
+        $attributes = $request->validate($rules);
+
+        $task->update($attributes);
+        return redirect(route('page.main'));
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect(route('page.main'));
     }
 }
