@@ -34,7 +34,7 @@
         @csrf
         @method('delete')
         <div class="form-group">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
+            <button type="submit" class="btn btn-dark"><i class="fas fa-trash-alt"></i></button>
         </div>
     </form>
 @endsection
