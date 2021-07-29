@@ -7,7 +7,11 @@
         Детальная страница статьи
     </h3>
     <h1>{{ $task->title }}</h1>
+
+    @include('tags.list', ['tags' => $task->tags])
+
     <p class="blog-post-meta">{{ $task->created_at->toFormattedDateString() }}</p>
+
     {{ $task->body }}
 
     @if($task->steps->isNotEmpty())

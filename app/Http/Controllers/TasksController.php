@@ -14,7 +14,7 @@ class TasksController extends Controller
     public function index()
     {
 
-        $tasks = Task::all();
+        $tasks = Task::with('tags')->latest()->get();
         return view('index', compact('tasks'));
     }
 
