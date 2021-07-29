@@ -9,6 +9,8 @@ class Step extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['description', 'completed'];
+
     public function task()
     {
         return $this->belongsTo(Task::class);
