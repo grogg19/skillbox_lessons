@@ -14,9 +14,11 @@
     <ul class="list-group mt-3">
         @foreach($task->steps as $step)
             <li class="list-group-item">
-                <form method="post" action="{{ route('task.step.update', ['step' => $step]) }}">
+                <form method="post" action="/completed-steps/{{ $step->id }}">
                     @csrf
-                    @method('patch')
+                    @if($step->completed)
+                        @method('delete')
+                    @endif
                     <div class="form-check">
                         <label class="form-check-label {{ $step->completed ? 'completed' : '' }}">
                             <input
@@ -34,6 +36,20 @@
         @endforeach
     </ul>
     @endif
+    @include('partials.errors')
+    <form class="card card-body my-4" method="post" action="{{ route('task.step.store', ['task' => $task]) }}">
+        @csrf
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Шаг"
+                   value="{{ old('description') }}"
+                   name="description"
+            />
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить </button>
+    </form>
+
     <div class="mt-4">
         <a class="btn btn-primary" href="{{ route('tasks.edit', $task) }}">Изменить <i class="fas fa-edit"></i></a>
     </div>

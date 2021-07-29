@@ -11,8 +11,20 @@ class Task extends Model
 
     protected $fillable = ['title', 'body'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function steps()
     {
         return $this->hasMany(Step::class);
+    }
+
+    /**
+     * @param $attributes
+     * @return Model
+     */
+    public function addStep($attributes)
+    {
+        return $this->steps()->create($attributes);
     }
 }

@@ -15,4 +15,14 @@ class Step extends Model
     {
         return $this->belongsTo(Task::class);
     }
+
+    public function complete($completed = true)
+    {
+        $this->update(['completed' => $completed]);
+    }
+
+    public function incomplete()
+    {
+        $this->complete(false);
+    }
 }

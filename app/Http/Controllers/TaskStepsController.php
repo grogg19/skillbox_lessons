@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Step;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskStepsController extends Controller
 {
-    public function update(Request $request, Step $step)
+    public function store(Request $request, Task $task)
     {
-        $step->update(['completed' => $request->boolean('completed')]);
-
-        return redirect(route('tasks.show', ['task' => $step->task->id]));
+        $attributes = $request->validate([
+           'description' => 'required|min:5'
+        ]);
+        $task->addStep($attributes);
+        return back();
     }
 }
