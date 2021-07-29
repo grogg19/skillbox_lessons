@@ -15,7 +15,7 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{ route('task.save') }}">
+    <form method="post" action="{{ route('tasks.store') }}">
         @csrf
         <div class="form-group">
             <label for="title">Название задачи:</label>

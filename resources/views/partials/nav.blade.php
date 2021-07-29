@@ -2,6 +2,6 @@
     <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="{{ route('page.main') }}">Главная</a>
         <a class="p-2 text-muted" href="{{ route('page.about') }}">О нас</a>
-        <a class="p-2 text-muted" href="{{ route('task.create') }}">Создать задачу</a>
+        <a class="p-2 text-muted" href="{{ route('tasks.create') }}">Создать задачу</a>
     </nav>
 </div>
