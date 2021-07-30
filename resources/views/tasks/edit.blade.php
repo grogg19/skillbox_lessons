@@ -19,6 +19,15 @@
             <textarea class="form-control" id="body" rows="3" name="body">{{ old('body', $task->body) }}</textarea>
         </div>
         <div class="form-group">
+            <label for="tags">Теги:</label>
+            <input type="text"
+                   class="form-control"
+                   id="tags"
+                   name="tags"
+                   placeholder="Теги"
+                   value="{{ old('tags', $task->tags->pluck('name'))->implode(',') }}" />
+        </div>
+        <div class="form-group">
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>

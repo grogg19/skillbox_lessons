@@ -41,14 +41,16 @@
     </ul>
     @endif
     @include('partials.errors')
-    <form class="card card-body my-4" method="post" action="{{ route('task.step.store', ['task' => $task]) }}">
+    <form class="card card-body my-4 pt-0" method="post" action="{{ route('task.step.store', ['task' => $task]) }}">
         @csrf
         <div class="form-group">
+            <label for="description"></label>
             <input type="text"
                    class="form-control"
                    placeholder="Шаг"
                    value="{{ old('description') }}"
                    name="description"
+                   id="description"
             />
         </div>
         <button type="submit" class="btn btn-primary">Добавить </button>
