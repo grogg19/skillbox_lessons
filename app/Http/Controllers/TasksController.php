@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -83,6 +85,25 @@ class TasksController extends Controller
         $attributes = $request->validate($rules);
 
         $task->update($attributes);
+
+        /** @var Collection $taskTags */
+        $taskTags = $task->tags->keyBy('name');
+
+        // теги с формы
+        $tags = collect(explode(',', $request->post('tags')))->keyBy(function ($item) { return $item; });
+
+        // ids для метода sync()
+        $syncIds = $taskTags->intersectByKeys($tags)->pluck('id')->toArray();
+
+        $tagsToAttach = $tags->diffKeys($taskTags);
+
+        foreach ($tagsToAttach as $tag) {
+            $tag = Tag::firstOrCreate(['name' => $tag]);
+            $syncIds[] = $tag->id;
+        }
+
+        $task->tags()->sync($syncIds);
+
         return redirect(route('page.main'));
     }
 
