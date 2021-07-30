@@ -2,7 +2,7 @@
     <h3 class="pb-3 mb-4 font-italic border-bottom">
         Задачи
     </h3>
-    @if (count($tasks) > 0)
+    @if ($tasks->isNotEmpty())
     @foreach($tasks as $task)
         @include('tasks.item')
     @endforeach
