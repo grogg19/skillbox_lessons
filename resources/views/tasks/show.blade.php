@@ -56,7 +56,7 @@
         <button type="submit" class="btn btn-primary">Добавить </button>
     </form>
 
-    <div class="mt-4">
+    <div class="my-4">
         <a class="btn btn-primary" href="{{ route('tasks.edit', $task) }}">Изменить <i class="fas fa-edit"></i></a>
     </div>
 @endsection
