@@ -1,23 +1,24 @@
 <?php
 
-
-use App\Http\Controllers\TagsController;
-use App\Http\Controllers\TasksController;
-use App\Http\Controllers\TaskStepsController;
-use App\Http\Controllers\CompletedStepsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [TasksController::class, 'index'])->name('page.main');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::resource('tasks', 'TasksController');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::post('/tasks/{task}/steps', [TaskStepsController::class, 'store'])->name('task.step.store');
-
-Route::post('/completed-steps/{step}', [CompletedStepsController::class, 'store']);
-Route::delete ('/completed-steps/{step}', [CompletedStepsController::class, 'destroy']);
-
-Route::get('/about/', function()   {
-    return view('about');
-})->name('page.about');
+require __DIR__.'/auth.php';
