@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Task;
+use App\Services\TagsSynchronizer;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class TasksController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, TagsSynchronizer $tagsSynchronizer)
     {
         $rules = [
             'title' => 'required',
@@ -44,7 +45,13 @@ class TasksController extends Controller
 
         $attibutes = $request->validate($rules);
 
-        Task::create($attibutes);
+        $task = Task::create($attibutes);
+
+        $tags = collect(
+            array_map('trim', explode(',', $request->post('tags')))
+        );
+
+        $tagsSynchronizer->sync($tags, $task);
 
         return redirect(route('page.main'));
     }
@@ -76,7 +83,7 @@ class TasksController extends Controller
      * @param Task $task
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task, TagsSynchronizer $tagsSynchronizer)
     {
         $rules = [
             'title' => 'required',
@@ -86,23 +93,11 @@ class TasksController extends Controller
 
         $task->update($attributes);
 
-        /** @var Collection $taskTags */
-        $taskTags = $task->tags->keyBy('name');
+        $tags = collect(
+            array_map('trim', explode(',', $request->post('tags')))
+        );
 
-        // теги с формы
-        $tags = collect(explode(',', $request->post('tags')))->keyBy(function ($item) { return $item; });
-
-        // ids для метода sync()
-        $syncIds = $taskTags->intersectByKeys($tags)->pluck('id')->toArray();
-
-        $tagsToAttach = $tags->diffKeys($taskTags);
-
-        foreach ($tagsToAttach as $tag) {
-            $tag = Tag::firstOrCreate(['name' => $tag]);
-            $syncIds[] = $tag->id;
-        }
-
-        $task->tags()->sync($syncIds);
+        $tagsSynchronizer->sync($tags, $task);
 
         return redirect(route('page.main'));
     }
