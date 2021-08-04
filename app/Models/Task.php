@@ -9,7 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'owner_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

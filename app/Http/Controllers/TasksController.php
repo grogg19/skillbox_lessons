@@ -42,9 +42,11 @@ class TasksController extends Controller
         ];
 
 
-        $attibutes = $request->validate($rules);
+        $attributes = $request->validate($rules);
 
-        $task = Task::create($attibutes);
+        $attributes['owner_id'] = auth()->id();
+
+        $task = Task::create($attributes);
 
         $tags = collect(
             array_map('trim', explode(',', $request->post('tags')))
