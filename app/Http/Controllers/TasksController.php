@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'can:update,task'])->except(['index', 'store', 'create', 'show']);
+        //$this->middleware('')->except('in');
+    }
+
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -72,9 +79,10 @@ class TasksController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        $task = Task::find($id);
+        $this->authorize('update', $task);
+
         return view('tasks.edit', compact('task'));
     }
 

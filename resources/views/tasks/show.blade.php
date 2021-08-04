@@ -14,6 +14,7 @@
 
     {{ $task->body }}
 
+    @can('update', $task)
     @if($task->steps->isNotEmpty())
     <ul class="list-group mt-3">
         @foreach($task->steps as $step)
@@ -55,8 +56,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Добавить </button>
     </form>
-
+    @endcan
     <div class="my-4">
+        @can('update', $task)
         <a class="btn btn-primary" href="{{ route('tasks.edit', $task) }}">Изменить <i class="fas fa-edit"></i></a>
+        @endcan
     </div>
 @endsection
