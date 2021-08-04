@@ -11,8 +11,7 @@ class TasksController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'can:update,task'])->except(['index', 'store', 'create', 'show']);
-        //$this->middleware('')->except('in');
+        $this->middleware(['auth', 'can:update,task'])->except(['index', 'store', 'show']);
     }
 
     /**
@@ -21,8 +20,13 @@ class TasksController extends Controller
      */
     public function index()
     {
+        if (auth()->check()) {
+            $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+        } else {
+            $tasks = Task::with('tags')->latest()->get();
+        }
 
-        $tasks = Task::with('tags')->latest()->get();
+
         return view('index', compact('tasks'));
     }
 
