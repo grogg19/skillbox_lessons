@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tag;
 use App\Models\Task;
 use App\Services\TagsSynchronizer;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -33,6 +31,7 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
+     * @param TagsSynchronizer $tagsSynchronizer
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request, TagsSynchronizer $tagsSynchronizer)

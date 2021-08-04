@@ -37,13 +37,13 @@
 
 <main role="main" class="container">
     <div class="row">
-        <div class="col-md-8 blog-main">
+        <div class="col-md-12 blog-main">
 
             @yield('content')
 
         </div><!-- /.blog-main -->
 
-        @include('partials/sidebar')
+
 
     </div><!-- /.row -->
 

@@ -5,3 +5,4 @@
         <a class="p-2 text-muted" href="{{ route('tasks.create') }}">Создать задачу</a>
     </nav>
 </div>
+

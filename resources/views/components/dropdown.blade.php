@@ -1,6 +1,10 @@
 @props(['align' => 'right', 'width' => '48', 'contentClasses' => 'py-1 bg-white'])
 
 @php
+/** @var string $align
+ *  @var string $width
+ */
+
 switch ($align) {
     case 'left':
         $alignmentClasses = 'origin-top-left left-0';
@@ -21,7 +25,8 @@ switch ($width) {
 }
 @endphp
 
-<div class="relative" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
+<div class="relative" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false"
+     xmlns:x-transition="http://www.w3.org/1999/xhtml">
     <div @click="open = ! open">
         {{ $trigger }}
     </div>
