@@ -26,7 +26,6 @@ class TasksController extends Controller
             $tasks = Task::with('tags')->latest()->get();
         }
 
-
         return view('index', compact('tasks'));
     }
 
