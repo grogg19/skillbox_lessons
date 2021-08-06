@@ -11,7 +11,7 @@ class TasksController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'can:update,task'])->except(['index', 'store', 'show']);
+        $this->middleware(['auth'])->except(['index', 'show']);
     }
 
     /**
