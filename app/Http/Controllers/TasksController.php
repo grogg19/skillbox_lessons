@@ -58,6 +58,8 @@ class TasksController extends Controller
 
         $task = Task::create($attributes);
 
+//        event(new TaskCreated($task));
+
         $tags = collect(
             array_map('trim', explode(',', $request->post('tags')))
         );

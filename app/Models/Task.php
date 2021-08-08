@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Mail\TaskCreated;
+use App\Events\TaskCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
 
 class Task extends Model
 {
@@ -13,16 +12,9 @@ class Task extends Model
 
     protected $fillable = ['title', 'body', 'owner_id'];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($task) {
-            Mail::to($task->owner->email)->send(
-                new TaskCreated($task)
-            );
-        });
-    }
+    protected $dispatchesEvents = [
+        'created' => TaskCreated::class,
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
