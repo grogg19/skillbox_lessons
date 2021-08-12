@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagsRequest;
 use App\Models\Task;
 use App\Services\TagsSynchronizer;
 use Illuminate\Http\Request;
@@ -42,15 +43,15 @@ class TasksController extends Controller
      * Store a newly created resource in storage.
      * @param Request $request
      * @param TagsSynchronizer $tagsSynchronizer
+     * @param TagsRequest $tagsRequest
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request, TagsSynchronizer $tagsSynchronizer)
+    public function store(Request $request, TagsSynchronizer $tagsSynchronizer, TagsRequest $tagsRequest)
     {
         $rules = [
             'title' => 'required',
             'body' => 'required'
         ];
-
 
         $attributes = $request->validate($rules);
 
@@ -58,11 +59,7 @@ class TasksController extends Controller
 
         $task = Task::create($attributes);
 
-//        event(new TaskCreated($task));
-
-        $tags = collect(
-            array_map('trim', explode(',', $request->post('tags')))
-        );
+        $tags = $tagsRequest->getTags($request);
 
         $tagsSynchronizer->sync($tags, $task);
 
@@ -97,7 +94,7 @@ class TasksController extends Controller
      * @param Task $task
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Task $task, TagsSynchronizer $tagsSynchronizer)
+    public function update(Request $request, Task $task, TagsSynchronizer $tagsSynchronizer, TagsRequest $tagsRequest)
     {
         $rules = [
             'title' => 'required',
@@ -107,9 +104,7 @@ class TasksController extends Controller
 
         $task->update($attributes);
 
-        $tags = collect(
-            array_map('trim', explode(',', $request->post('tags')))
-        );
+        $tags = $tagsRequest->getTags($request);
 
         $tagsSynchronizer->sync($tags, $task);
 

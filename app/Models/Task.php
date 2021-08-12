@@ -6,7 +6,7 @@ use App\Events\TaskCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Task extends Model implements HasTags
 {
     use HasFactory;
 
