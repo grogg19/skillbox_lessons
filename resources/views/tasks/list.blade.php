@@ -3,9 +3,7 @@
         Задачи
     </h3>
     @if ($tasks->isNotEmpty())
-    @foreach($tasks as $task)
-        @include('tasks.item')
-    @endforeach
+        @each('tasks.item', $tasks, 'task')
     @else
     <div class="blog-post">
         <h2>Список задач пуст</h2>
