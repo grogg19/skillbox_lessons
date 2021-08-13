@@ -19,6 +19,6 @@
            value="{{ old('tags')}}" />
            @endif
 </div>
-<div class="form-group">
+<div class="form-group mb-5">
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </div>

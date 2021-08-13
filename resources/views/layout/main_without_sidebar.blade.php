@@ -11,11 +11,8 @@
 
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" rel="stylesheet">
 
@@ -32,7 +29,7 @@
 
 </div>
 
-<main role="main" class="container">
+<main role="main" class="container mb-5">
     <div class="row">
         <div class="col-md-12 blog-main">
 
