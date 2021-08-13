@@ -45,4 +45,14 @@ class Task extends Model implements HasTags
     {
         return $this->belongsTo(User::class);
     }
+
+    public function isCompleted()
+    {
+        return (bool) $this->completed;
+    }
+
+    public function isNotCompleted()
+    {
+        return (bool) !$this->completed;
+    }
 }

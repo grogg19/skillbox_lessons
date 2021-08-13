@@ -48,6 +48,7 @@ class TasksController extends Controller
      */
     public function store(Request $request, TagsSynchronizer $tagsSynchronizer, TagsRequest $tagsRequest)
     {
+
         $rules = [
             'title' => 'required',
             'body' => 'required'
