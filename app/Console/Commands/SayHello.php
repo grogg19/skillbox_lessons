@@ -14,7 +14,7 @@ class SayHello extends Command
      * @var string
      */
     protected $signature = 'app:say_hello
-    {users* : Пользователи}
+    {users*? : Пользователи}
     {--subject=Hello : Заголовок письма}
     {--c|class : Преобразовать в имя класса }';
 
@@ -40,7 +40,10 @@ class SayHello extends Command
      */
     public function handle()
     {
-        $users = User::findOrFail($this->argument('users'));
+        $users = $this->argument('users')
+            ? User::findOrFail($this->argument('users'))
+            : User::all()
+        ;
 
         $subject = $this->option('subject');
 

@@ -4,7 +4,7 @@
 
 @section('content')
     <h3 class="pb-3 mb-4 font-italic border-bottom">
-        Детальная страница статьи
+        Детальная страница задачи
     </h3>
     <h1>{{ $task->title }}</h1>
 
