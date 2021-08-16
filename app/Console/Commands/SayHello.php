@@ -49,5 +49,7 @@ class SayHello extends Command
         }
 
         $users->map->notify(new \App\Notifications\SayHello($subject));
+
+        $this->info('Уведомления отправлены');
     }
 }
