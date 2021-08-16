@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Step;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StepFactory extends Factory
@@ -22,7 +23,8 @@ class StepFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'description' => $this->faker->sentence,
+            'task_id' => Task::factory()->create()
         ];
     }
 }
