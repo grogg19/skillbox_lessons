@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PushServiceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\TasksController;
@@ -23,5 +24,8 @@ Route::get('/about/', function () {
 Route::post('/companies', function () {
     auth()->user()->company()->create(request()->validate(['name' => 'required']));
 })->middleware('auth');
+
+Route::get('/service', [PushServiceController::class, 'form'])->name('pushall.form');
+Route::post('/service', [PushServiceController::class, 'send'])->name('pushall.send');
 
 require __DIR__.'/auth.php';
