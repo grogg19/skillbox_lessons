@@ -16,8 +16,12 @@ Route::post('/tasks/{task}/steps', [TaskStepsController::class, 'store'])->name(
 Route::post('/completed-steps/{step}', [CompletedStepsController::class, 'store']);
 Route::delete ('/completed-steps/{step}', [CompletedStepsController::class, 'destroy']);
 
-Route::get('/about/', function()   {
+Route::get('/about/', function () {
     return view('about');
 })->name('page.about');
+
+Route::post('/companies', function () {
+    auth()->user()->company()->create(request()->validate(['name' => 'required']));
+})->middleware('auth');
 
 require __DIR__.'/auth.php';

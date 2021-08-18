@@ -19,7 +19,7 @@ class TasksToUserSeeder extends Seeder
     {
         $user = User::factory([
             'name' => 'Anton Devyatov',
-            'email' => 'differ@list.ru',
+            'email' => 'admin@mail.ru',
             'password' => Hash::make('12345678')
         ])->create();
 
