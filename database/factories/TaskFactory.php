@@ -25,8 +25,8 @@ class TaskFactory extends Factory
     {
         return [
             'title' => Str::ucfirst((string) $this->faker->words(3, true)),
-            'body' => $this->faker->sentence,
-            'owner_id' => User::factory()->create()
+            'body' => $this->faker->sentence(),
+            'owner_id' => User::factory()
         ];
     }
 }

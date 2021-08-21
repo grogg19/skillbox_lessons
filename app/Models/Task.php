@@ -5,15 +5,21 @@ namespace App\Models;
 use App\Events\TaskCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model implements HasTags
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
 
     protected $fillable = ['title', 'body', 'owner_id'];
 
     protected $dispatchesEvents = [
         'created' => TaskCreated::class,
+    ];
+
+    protected $attributes = [
+        'completed' => false
     ];
 
     /**

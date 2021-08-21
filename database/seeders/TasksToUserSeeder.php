@@ -23,10 +23,14 @@ class TasksToUserSeeder extends Seeder
             'password' => Hash::make('12345678')
         ])->create();
 
-        Task::factory(5)->create([
-            'owner_id' => $user
-        ])->each(function (Task $task) {
-             $task->steps()->saveMany(Step::factory(rand(1,5))->make());
-        });
+
+        Task::flushEventListeners();
+
+        User::factory()
+            ->has(Task::factory()
+                ->has(Step::factory()->count(rand(1,5)), 'steps')
+                ->count(3),'tasks')
+            ->count(3)
+            ->create();
     }
 }

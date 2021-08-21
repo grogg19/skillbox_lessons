@@ -23,8 +23,8 @@ class StepFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->sentence,
-            'task_id' => Task::factory()->create()
+            'description' => $this->faker->sentence(),
+            'task_id' => Task::factory()
         ];
     }
 }
