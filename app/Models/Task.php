@@ -23,6 +23,15 @@ class Task extends Model implements HasTags
         'type' => 'new'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('onlyNew', function (Builder $builder) {
+            $builder->new();
+        });
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
