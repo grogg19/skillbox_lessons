@@ -23,6 +23,10 @@ class Task extends Model implements HasTags
         'type' => 'new'
     ];
 
+    protected $appends = [
+        'double_type'
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -31,6 +35,20 @@ class Task extends Model implements HasTags
         });
     }
 
+    public function getTypeAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function setTypeAttribute($value)
+    {
+        $this->attributes['type'] = ucfirst(strtolower($value));
+    }
+
+    public function getDoubleTypeAttribute()
+    {
+        return str_repeat($this->type, 2);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
