@@ -11,6 +11,10 @@ class Step extends Model
 
     protected $fillable = ['description', 'completed'];
 
+    protected $touches = [
+        'task'
+    ];
+
     public function task()
     {
         return $this->belongsTo(Task::class);

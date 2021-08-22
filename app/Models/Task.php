@@ -23,17 +23,19 @@ class Task extends Model implements HasTags
         'type' => 'new'
     ];
 
-    protected $appends = [
-        'double_type'
+//    protected $appends = [
+//        'double_type'
+//    ];
+
+    protected $dates = [
+        'viewed_at'
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::addGlobalScope('onlyNew', function (Builder $builder) {
-            $builder->new();
-        });
-    }
+    protected $casts = [
+        'completed' => 'boolean',
+        'options' => 'array',
+        'viewed_at' => 'datetime:d.m.Y'
+    ];
 
     public function getTypeAttribute($value)
     {
@@ -45,10 +47,10 @@ class Task extends Model implements HasTags
         $this->attributes['type'] = ucfirst(strtolower($value));
     }
 
-    public function getDoubleTypeAttribute()
-    {
-        return str_repeat($this->type, 2);
-    }
+//    public function getDoubleTypeAttribute()
+//    {
+//        return str_repeat($this->type, 2);
+//    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

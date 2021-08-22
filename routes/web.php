@@ -9,6 +9,9 @@ use App\Http\Controllers\CompletedStepsController;
 
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
+Route::get('/test', function (){
+    return \App\Models\User::with('tasks')->get();
+});
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 
 Route::resource('tasks', 'TasksController');

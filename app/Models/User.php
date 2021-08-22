@@ -41,6 +41,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'is_admin'
+    ];
+
+    public function getIsAdminAttribute()
+    {
+         return (bool) rand(0,1);
+    }
+
+    public function getIsManagerAttribute()
+    {
+         return (bool) rand(0,1);
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class, 'owner_id');
@@ -48,6 +62,6 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->hasOne(Company::class, 'owner_id');
+        return $this->hasOne(Company::class, 'owner_id')->withDefault(['name' => 'Нет компании']);
     }
 }
