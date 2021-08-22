@@ -29,7 +29,7 @@ class TasksToUserSeeder extends Seeder
         User::factory()
             ->has(Task::factory()
                 ->has(Step::factory()->count(rand(1,5)), 'steps')
-                ->count(3),'tasks')
+                ->count(2),'tasks')
             ->count(3)
             ->create();
     }

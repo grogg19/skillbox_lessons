@@ -6,6 +6,7 @@ use App\Events\TaskCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Task extends Model implements HasTags
 {
@@ -19,7 +20,7 @@ class Task extends Model implements HasTags
     ];
 
     protected $attributes = [
-        'completed' => false
+        'type' => 'new'
     ];
 
     /**
@@ -60,5 +61,29 @@ class Task extends Model implements HasTags
     public function isNotCompleted()
     {
         return (bool) !$this->completed;
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeIncomplete(Builder $query): Builder
+    {
+        return $query->where('completed', 0);
+    }
+
+    /**
+     * @param Builder $query
+     * @param $type
+     * @return Builder
+     */
+    public function scopeOfType(Builder $query, $type): Builder
+    {
+        return $query->where('type', $type);
+    }
+
+    public function scopeNew(Builder $query): Builder
+    {
+        return $query->ofType('new');
     }
 }
