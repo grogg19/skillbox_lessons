@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class Task extends Model implements HasTags
 {
@@ -66,6 +67,28 @@ class Task extends Model implements HasTags
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function history()
+    {
+        return $this->belongsToMany(User::class, 'task_histories')->withPivot(['before', 'after'])->withTimestamps();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function (Task $task) {
+
+            $after = $task->getDirty();
+            $task->history()->attach(auth()->id(), [
+                'before' => json_encode(Arr::only($task->fresh()->toArray(), array_keys($after))),
+                'after' => json_encode($after)
+            ]);
+        });
     }
 
     /**

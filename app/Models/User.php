@@ -64,4 +64,5 @@ class User extends Authenticatable
     {
         return $this->hasOne(Company::class, 'owner_id')->withDefault(['name' => 'Нет компании']);
     }
+
 }
