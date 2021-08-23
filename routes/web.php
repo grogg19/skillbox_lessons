@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PushServiceController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\TasksController;
@@ -10,7 +11,11 @@ use App\Http\Controllers\CompletedStepsController;
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::get('/test', function (){
-    return \App\Models\User::with('tasks')->get();
+    $tasks = DB::table('tasks')
+        ->where('options->lang', 'ru')
+        ->get();
+
+    dump($tasks);
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 
