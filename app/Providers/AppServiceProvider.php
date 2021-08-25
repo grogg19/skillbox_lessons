@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Tag;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('partials.sidebar', function($view) {
             $view->with('tagsCloud', Tag::tagsCloud());
         });
+
+        Paginator::defaultView('pagination::bootstrap-4');
+        Paginator::defaultSimpleView('pagination::simple-bootstrap-4');
     }
 }

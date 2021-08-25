@@ -4,6 +4,10 @@
     </h3>
     @if ($tasks->isNotEmpty())
         @each('tasks.item', $tasks, 'task')
+
+        <div class="blog-post">
+            {{ $tasks->links() }}
+        </div>
     @else
     <div class="blog-post">
         <h2>Список задач пуст</h2>

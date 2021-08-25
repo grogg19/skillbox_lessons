@@ -22,9 +22,9 @@ class TasksController extends Controller
     public function index()
     {
         if (auth()->check()) {
-            $tasks = auth()->user()->tasks()->with('tags')->latest()->get();
+            $tasks = auth()->user()->tasks()->with('tags')->latest()->paginate(2);
         } else {
-            $tasks = Task::with('tags')->latest()->get();
+            $tasks = Task::with('tags')->latest()->paginate(2);
         }
 
         return view('index', compact('tasks'));
