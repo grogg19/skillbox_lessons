@@ -11,5 +11,14 @@ class Company extends Model
 
     protected $fillable = ['name', 'owner_id'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function logo()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 
 }

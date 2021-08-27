@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Step extends Model
+class Step extends Model implements HasTags
 {
     use HasFactory;
 
@@ -28,5 +28,13 @@ class Step extends Model
     public function incomplete()
     {
         $this->complete(false);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }

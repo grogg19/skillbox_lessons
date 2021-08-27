@@ -62,11 +62,11 @@ class Task extends Model implements HasTags
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     /**
@@ -137,5 +137,15 @@ class Task extends Model implements HasTags
     public function scopeNew(Builder $query): Builder
     {
         return $query->ofType('new');
+    }
+
+    public function company()
+    {
+        return $this->hasOneThrough(Company::class, User::class, 'id', 'owner_id');
+    }
+
+    public function comment()
+    {
+        return $this->morphToMany('App\Comment', 'commentable');
     }
 }

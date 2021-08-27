@@ -12,12 +12,21 @@ class Tag extends Model
     protected $fillable = ['name'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function tasks()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->morphedByMany(Task::class, 'taggable');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function steps()
+    {
+        return $this->morphedByMany(Step::class, 'taggable');
+    }
+
 
     /**
      * @return string

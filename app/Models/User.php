@@ -65,4 +65,14 @@ class User extends Authenticatable
         return $this->hasOne(Company::class, 'owner_id')->withDefault(['name' => 'Нет компании']);
     }
 
+    public function steps()
+    {
+        return $this->hasManyThrough(Step::class, Task::class, 'id', 'task_id');
+    }
+
+    public function avatar()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
 }
