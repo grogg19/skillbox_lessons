@@ -24,7 +24,8 @@ class StepFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(),
-            'task_id' => Task::factory()
+            'task_id' => Task::factory(),
+            'completed' => $this->faker->boolean(),
         ];
     }
 }

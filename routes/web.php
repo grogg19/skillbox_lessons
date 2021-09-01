@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PushServiceController;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
@@ -11,17 +12,8 @@ use App\Http\Controllers\CompletedStepsController;
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::get('/test', function (){
-
-    dump(public_path('images'));
-
-//    dump(\App\Models\Image::with('imageable')
-//        ->get()
-//        ->loadMorph('imageable', [
-//            \App\Models\User::class => ['company', 'tasks'],
-//            \App\Models\Company::class => ['user']
-//        ])
-//        ->toArray()
-//    );
+    \App\Jobs\CompletedTasksReport::dispatch();
+    \App\Jobs\CompletedTasksReport::dispatch(auth()->user())->delay(now()->addSeconds(10));
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 

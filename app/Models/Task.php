@@ -119,9 +119,18 @@ class Task extends Model implements HasTags
      * @param Builder $query
      * @return Builder
      */
-    public function scopeIncomplete(Builder $query): Builder
+    public function scopeIncompleted(Builder $query): Builder
     {
-        return $query->where('completed', 0);
+        return $query->where('completed', false);
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeCompleted(Builder $query): Builder
+    {
+        return $query->where('completed', true);
     }
 
     /**
