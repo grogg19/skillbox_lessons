@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use Faker\Factory as FakerFactory;
+use Faker\Generator as FakerGenerator;
+use Salopot\ImageGenerator\ImageSources\Local;
+use Salopot\ImageGenerator\ImageSources\Remote;
 use App\Models\Tag;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;

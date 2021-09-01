@@ -16,7 +16,7 @@ class Tag extends Model
      */
     public function tasks()
     {
-        return $this->morphedByMany(Task::class, 'taggable');
+        return $this->morphedByMany(Task::class, 'tagable');
     }
 
     /**
@@ -24,7 +24,7 @@ class Tag extends Model
      */
     public function steps()
     {
-        return $this->morphedByMany(Step::class, 'taggable');
+        return $this->morphedByMany(Step::class, 'tagable');
     }
 
 

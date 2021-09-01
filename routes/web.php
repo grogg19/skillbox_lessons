@@ -12,14 +12,16 @@ Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::get('/test', function (){
 
-    dump(\App\Models\Image::with('imageable')
-        ->get()
-        ->loadMorph('imageable', [
-            \App\Models\User::class => ['company', 'tasks'],
-            \App\Models\Company::class => ['user']
-        ])
-        ->toArray()
-    );
+    dump(public_path('images'));
+
+//    dump(\App\Models\Image::with('imageable')
+//        ->get()
+//        ->loadMorph('imageable', [
+//            \App\Models\User::class => ['company', 'tasks'],
+//            \App\Models\Company::class => ['user']
+//        ])
+//        ->toArray()
+//    );
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 
