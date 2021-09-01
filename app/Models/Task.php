@@ -66,7 +66,7 @@ class Task extends Model implements HasTags
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'tagable');
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     /**

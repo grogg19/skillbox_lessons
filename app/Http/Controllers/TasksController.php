@@ -19,12 +19,12 @@ class TasksController extends Controller
      * Display a listing of the resource.
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index($perPage = 10)
     {
         if (auth()->check()) {
-            $tasks = auth()->user()->tasks()->with('tags')->latest()->paginate(2);
+            $tasks = auth()->user()->tasks()->with('tags')->latest()->paginate($perPage);
         } else {
-            $tasks = Task::with('tags')->latest()->paginate(2);
+            $tasks = Task::with('tags')->latest()->paginate($perPage);
         }
 
         return view('index', compact('tasks'));
