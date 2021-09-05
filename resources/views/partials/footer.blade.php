@@ -11,6 +11,7 @@
 <script src="{{ mix('js/app.js') }}" ></script>
 <script src="{{ mix('js/bootstrap.js') }}" ></script>
 
+<script src="{{ mix('js/echo-listen.js') }}" ></script>
 <script src="{{ mix('js/echo.js') }}" ></script>
 
 <script src="{{ asset('js/scripts.js') }}" ></script>
