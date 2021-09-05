@@ -59,9 +59,8 @@
 // //app.mount('#app')
 //
 
-const echoBlock = document.querySelector('#echo');
-
-Echo.private('task.' + echoBlock.getAttribute('data-task-id'))
-    .listen('TaskUpdated', (data) => {
-        window.location.reload();
-    });
+// Echo.private('task.' + this.taskId)
+//     .listen('TaskUpdated', (data) => {
+//         this.hasUpdate = true
+//         alert(123)
+//     });
