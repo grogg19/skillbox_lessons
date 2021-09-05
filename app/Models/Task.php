@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\TaskCreated;
+use App\Events\TaskUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,6 +19,7 @@ class Task extends Model implements HasTags
 
     protected $dispatchesEvents = [
         'created' => TaskCreated::class,
+        'updated' => TaskUpdated::class,
     ];
 
     protected $attributes = [

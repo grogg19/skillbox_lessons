@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--    <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">--}}
 
     <title>@yield('title', 'Laravel Skillbox')</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" rel="stylesheet">
-
+{{--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>--}}
 </head>
 
 <body>

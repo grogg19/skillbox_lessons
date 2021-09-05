@@ -8,6 +8,10 @@
     </h3>
     <h1>{{ $task->title }}</h1>
 
+    <div id="app">
+        <task-update task-id="{{ $task->id }}"></task-update>
+    </div>
+
     @include('tags.list', ['tags' => $task->tags])
 
     <p class="blog-post-meta">{{ $task->created_at->toFormattedDateString() }}</p>
@@ -69,13 +73,6 @@
     </form>
     @endcan
 
-    <hr>
-
-    @forelse($task->history as $item)
-        <p>{{ $item->email }} - {{ $item->pivot->created_at->diffForHumans() }} {{ $item->pivot->before }} - {{ $item->pivot->after }}</p>
-    @empty
-        <p>Нет истории изменений</p>
-    @endforelse
     <div class="my-4">
         @can('update', $task)
         <a class="btn btn-primary" href="{{ route('tasks.edit', $task) }}">Изменить <i class="fas fa-edit"></i></a>

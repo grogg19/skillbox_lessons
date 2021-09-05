@@ -11,9 +11,8 @@ use App\Http\Controllers\CompletedStepsController;
 
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
-Route::get('/test', function (){
-    \App\Jobs\CompletedTasksReport::dispatch();
-    \App\Jobs\CompletedTasksReport::dispatch(auth()->user())->delay(now()->addSeconds(10));
+Route::get('/test', function () {
+    event(new \App\Events\SomethingHappens('Мы настроили ws-соединение!'));
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 
