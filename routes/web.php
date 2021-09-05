@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\ChatMessage;
 use App\Http\Controllers\PushServiceController;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -32,5 +33,9 @@ Route::post('/companies', function () {
 
 Route::get('/service', [PushServiceController::class, 'form'])->name('pushall.form');
 Route::post('/service', [PushServiceController::class, 'send'])->name('pushall.send');
+
+Route::post('/chat', function () {
+    broadcast(new ChatMessage(request('message'), auth()->user()));
+})->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -58,10 +58,10 @@
 //
 // //app.mount('#app')
 //
-
 const echoBlock = document.querySelector('#echo');
 
 Echo.private('task.' + echoBlock.getAttribute('data-task-id'))
     .listen('TaskUpdated', (data) => {
         window.location.reload();
     });
+
