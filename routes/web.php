@@ -35,7 +35,7 @@ Route::get('/service', [PushServiceController::class, 'form'])->name('pushall.fo
 Route::post('/service', [PushServiceController::class, 'send'])->name('pushall.send');
 
 Route::post('/chat', function () {
-    broadcast(new ChatMessage(request('message'), auth()->user()));
+    broadcast(new ChatMessage(request('message'), auth()->user()))->toOthers();
 })->middleware('auth');
 
 require __DIR__.'/auth.php';

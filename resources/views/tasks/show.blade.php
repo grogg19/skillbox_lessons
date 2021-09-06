@@ -8,11 +8,7 @@
     </h3>
     <h1>{{ $task->title }}</h1>
 
-    <div>
-        <div id="echo" data-task-id="{{ $task->id }}" class="collapse">
-            Задача была обновлена <button onclick="window.location.reload()" class="btn btn-danger">Обновить страницу</button>
-        </div>
-    </div>
+    <task-update task-id="{{ $task->id }}"></task-update>
 
     @include('tags.list', ['tags' => $task->tags])
 

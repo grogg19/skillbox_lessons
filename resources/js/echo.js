@@ -62,8 +62,16 @@
 //
 const echoBlock = document.querySelector('#echo');
 
-Echo.private('task.' + echoBlock.getAttribute('data-task-id'))
-    .listen('TaskUpdated', (data) => {
-        window.location.reload();
-    });
+// if(echoBlock) {
+//     Echo.private('task.' + echoBlock.getAttribute('data-task-id'))
+//         .listen('TaskUpdated', (data) => {
+//             window.location.reload();
+//         });
+// }
 
+Vue.component('task-update', require('./components/TaskUpdate').default)
+Vue.component('chat', require('./components/Chat').default)
+
+const app = new Vue({
+    el: '#app'
+})

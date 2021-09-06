@@ -15,11 +15,13 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 
 <body>
 
-<div class="container" id="app">
+<div class="container" >
 
     @include('partials/header')
 
@@ -27,7 +29,7 @@
 
 </div>
 
-<main role="main" class="container mb-5">
+<main role="main" class="container mb-5" id="app">
     <div class="row">
         <div class="col-md-8 blog-main">
             @if (session('status'))
@@ -40,7 +42,7 @@
         @include('partials/sidebar')
 
     </div><!-- /.row -->
-
+    <chat u-id="{{ auth()->user()->id }}"></chat>
 </main><!-- /.container -->
 
 @include('partials/footer')
