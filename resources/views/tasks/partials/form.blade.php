@@ -3,6 +3,10 @@
     <input type="text" class="form-control data-source-slugify" id="title" name="title" placeholder="Введите название задачи" value="{{ old('title', $task->title ?? '') }}" />
 </div>
 <div class="form-group">
+    <label for="slug">Slug:</label>
+    <input type="text" class="form-control data-target-slugify" id="slug" name="slug" placeholder="-slug-" value="{{ old('slug', $task->slug ?? '') }}" />
+</div>
+<div class="form-group">
     <label for="body">Описание задачи:</label>
     <textarea class="form-control" id="body" rows="3" name="body">{{ old('body', $task->body ?? '') }}</textarea>
 </div>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\HasTags;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Collection;
 
 class TagsSynchronizer

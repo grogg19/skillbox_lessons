@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Tag extends Model
 {
@@ -42,5 +43,17 @@ class Tag extends Model
     public static function tagsCloud()
     {
         return (new static())->has('tasks')->get();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function () {
+            Cache::tags(['tags'])->flush();
+        });
+        static::updated(function () {
+            Cache::tags(['tags'])->flush();
+        });
     }
 }

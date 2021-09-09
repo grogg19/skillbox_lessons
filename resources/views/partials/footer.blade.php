@@ -12,6 +12,8 @@
 <script src="{{ mix('js/bootstrap.js') }}" ></script>
 
 <script src="{{ mix('js/echo-listen.js') }}" ></script>
+@auth()
 <script src="{{ mix('js/echo.js') }}" ></script>
+@endauth
 
 <script src="{{ asset('js/scripts.js') }}" ></script>

@@ -42,7 +42,9 @@
         @include('partials/sidebar')
 
     </div><!-- /.row -->
+    @auth()
     <chat u-id="{{ auth()->user()->id ?? null}}"></chat>
+    @endauth
 </main><!-- /.container -->
 
 @include('partials/footer')

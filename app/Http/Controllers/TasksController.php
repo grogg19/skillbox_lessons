@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TagsRequest;
 use App\Models\Task;
 use App\Services\TagsSynchronizer;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
@@ -21,11 +22,12 @@ class TasksController extends Controller
      */
     public function index($perPage = 10)
     {
-        if (auth()->check()) {
-            $tasks = auth()->user()->tasks()->with('tags')->latest()->paginate($perPage);
-        } else {
-            $tasks = Task::with('tags')->latest()->paginate($perPage);
-        }
+        $tasks = Cache::tags(['tasks','tags'])->remember('users_tasks|' . auth()->id(), 3600, function () use($perPage) {
+            if (auth()->check()) {
+                return auth()->user()->tasks()->with('tags')->latest()->paginate($perPage);
+            }
+             return Task::with('tags')->latest()->paginate($perPage);
+        });
 
         return view('index', compact('tasks'));
     }

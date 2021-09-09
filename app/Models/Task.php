@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Arr;
 
 class Task extends Model implements HasTags
@@ -91,6 +92,17 @@ class Task extends Model implements HasTags
                 'after' => json_encode($after)
             ]);
         });
+
+        static::created(function () {
+            Cache::tags(['tasks'])->flush();
+        });
+        static::updated(function () {
+            Cache::tags(['tasks'])->flush();
+        });
+        static::deleted(function () {
+            Cache::tags(['tasks'])->flush();
+        });
+
     }
 
     /**

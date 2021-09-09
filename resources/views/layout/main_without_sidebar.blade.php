@@ -34,13 +34,17 @@
 <main role="main" class="container mb-5" id="app">
     <div class="row">
         <div class="col-md-12 blog-main">
-
+            @if (session('status'))
+                @include('flash.success')
+            @endif
             @yield('content')
 
         </div><!-- /.blog-main -->
 
     </div><!-- /.row -->
-
+    @auth()
+        <chat u-id="{{ auth()->user()->id ?? null}}"></chat>
+    @endauth
 </main><!-- /.container -->
 
 @include('partials/footer')

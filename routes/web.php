@@ -2,7 +2,9 @@
 
 use App\Events\ChatMessage;
 use App\Http\Controllers\PushServiceController;
+use App\Models\Task;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
@@ -13,7 +15,7 @@ use App\Http\Controllers\CompletedStepsController;
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::get('/test', function () {
-    event(new \App\Events\SomethingHappens('Мы настроили ws-соединение!'));
+
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 
