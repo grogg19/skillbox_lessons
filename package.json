@@ -22,6 +22,7 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
+        "@vueuse/sound": "github:vueuse/sound",
         "laravel-echo": "^1.11.2",
         "socket.io-client": "2.4.0",
         "vue": "^2.6.14"

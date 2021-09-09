@@ -4,8 +4,12 @@
         <div class="chat-messages">
             <p v-for="message in messages">{{ message }}</p>
         </div>
-        <div class="chat-typing" v-model="typing">{{ typing }}</div>
-        <input name="message" class="form-control" v-model="message" v-on:keydown.enter="sendMessage" @keydown="whisperTyping" placeholder="Сообщение...">
+            <div class="chat-typing">
+                <transition name="fade">
+                    <span v-if="typing">{{ typing }}</span>
+                </transition>
+            </div>
+        <input name="message" class="form-control" v-model="message" v-on:keydown.enter="sendMessage" @keydown.passive="whisperTyping" placeholder="Сообщение...">
         <button class="btn btn-primary" @click.prevent="sendMessage">Отправить</button>
     </div>
 </template>
@@ -23,8 +27,8 @@
         height: 330px;
         padding: 10px;
         background-color: #ffffff;
-        border: 1px solid #f1f1f1;
-        border-radius: 5px;
+        border: 1px solid #cdcdcd;
+        border-radius: 10px;
         z-index: 10;
     }
 
@@ -43,9 +47,17 @@
         height: 10px;
         margin-bottom:10px;
     }
+
+    .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+        opacity: 0;
+    }
 </style>
 
 <script>
+
 export default {
 
     props: ['uId'],
@@ -57,7 +69,8 @@ export default {
             channel: null,
             users: null,
             name: null,
-            typing: null
+            typing: null,
+            notifySound: new Audio('/js/sounds/appleNotify.mp3') // path to file
         }
     },
 
@@ -67,6 +80,7 @@ export default {
             this.channel.listen('ChatMessage', (data) => {
                 this.name = data.user.name;
                 this.addMessage(data.user.name + ': ' + data.message)
+                this.notifySound.play();
             })
             .here((users) => {
                 this.users = users;
@@ -83,7 +97,7 @@ export default {
                 this.typing = data.name + ' печатает...';
                 setTimeout( () => {
                     this.typing = null
-                }, 1000)
+                }, 3000)
             });
     },
 
@@ -131,6 +145,8 @@ export default {
             let chatMessages = this.$el.querySelector(".chat-messages");
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+
+
     }
 }
 </script>
