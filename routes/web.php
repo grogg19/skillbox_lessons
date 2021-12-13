@@ -15,7 +15,7 @@ use App\Http\Controllers\CompletedStepsController;
 Route::get('/', [TasksController::class, 'index'])->name('page.main');
 
 Route::get('/test', function () {
-
+    dump(getRange([9,3,5,4,6,12,11,10,1,14,15]));
 });
 Route::get('/tasks/tags/{tag}', [TagsController::class, 'index'])->name('tags.selectByTag');
 

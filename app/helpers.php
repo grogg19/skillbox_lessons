@@ -15,3 +15,31 @@ if (! function_exists('push_all')) {
         return app(\App\Services\PushAll::class)->send($title, $text);
     }
 }
+
+if (! function_exists('getRange')) {
+
+    /**
+     * @param array $numbers
+     * @return string
+     */
+    function getRange(array $numbers): string
+    {
+        sort($numbers, SORT_NUMERIC);
+
+        $beginRange = '';
+        $resultArray = [];
+
+        foreach ($numbers as $key => $number) {
+
+            if (empty($numbers[$key + 1]) || ($number + 1) !== $numbers[$key + 1]) {
+                $resultArray[] = $beginRange . $number;
+                $beginRange = '';
+            } else {
+                $beginRange = (empty($beginRange)) ? $number . '-' : $beginRange;
+                continue;
+            }
+
+        }
+        return implode( ', ', $resultArray);
+    }
+}
